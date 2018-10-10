@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouhou.mapper.TestMapper" >
+  <resultMap id="BaseResultMap" type="com.shouhou.pojo.Test" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="number" property="number" jdbcType="VARCHAR" />
+    <result column="name_" property="name" jdbcType="VARCHAR" />
+    <result column="range_" property="range" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="standard" property="standard" jdbcType="VARCHAR" />
+    <result column="national standard" property="nationalStandard" jdbcType="VARCHAR" />
+    <result column="landmark" property="landmark" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+    <result column="endtime" property="endtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, number, name_, range_, remarks, standard, "national standard", landmark, time, 
+    endtime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shouhou.pojo.TestExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from test
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from test
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from test
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shouhou.pojo.TestExample" >
+    delete from test
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shouhou.pojo.Test" >
+    insert into test (id, number, name_, 
+      range_, remarks, standard, 
+      "national standard", landmark, time, 
+      endtime)
+    values (#{id,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{range,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{standard,jdbcType=VARCHAR}, 
+      #{nationalStandard,jdbcType=VARCHAR}, #{landmark,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}, 
+      #{endtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shouhou.pojo.Test" >
+    insert into test
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="name != null" >
+        name_,
+      </if>
+      <if test="range != null" >
+        range_,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="standard != null" >
+        standard,
+      </if>
+      <if test="nationalStandard != null" >
+        "national standard",
+      </if>
+      <if test="landmark != null" >
+        landmark,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="endtime != null" >
+        endtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="range != null" >
+        #{range,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="standard != null" >
+        #{standard,jdbcType=VARCHAR},
+      </if>
+      <if test="nationalStandard != null" >
+        #{nationalStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="landmark != null" >
+        #{landmark,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shouhou.pojo.TestExample" resultType="java.lang.Integer" >
+    select count(*) from test
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update test
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.number != null" >
+        number = #{record.number,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name_ = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.range != null" >
+        range_ = #{record.range,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null" >
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.standard != null" >
+        standard = #{record.standard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nationalStandard != null" >
+        "national standard" = #{record.nationalStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.landmark != null" >
+        landmark = #{record.landmark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endtime != null" >
+        endtime = #{record.endtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update test
+    set id = #{record.id,jdbcType=INTEGER},
+      number = #{record.number,jdbcType=VARCHAR},
+      name_ = #{record.name,jdbcType=VARCHAR},
+      range_ = #{record.range,jdbcType=VARCHAR},
+      remarks = #{record.remarks,jdbcType=VARCHAR},
+      standard = #{record.standard,jdbcType=VARCHAR},
+      "national standard" = #{record.nationalStandard,jdbcType=VARCHAR},
+      landmark = #{record.landmark,jdbcType=VARCHAR},
+      time = #{record.time,jdbcType=TIMESTAMP},
+      endtime = #{record.endtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shouhou.pojo.Test" >
+    update test
+    <set >
+      <if test="number != null" >
+        number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name_ = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="range != null" >
+        range_ = #{range,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="standard != null" >
+        standard = #{standard,jdbcType=VARCHAR},
+      </if>
+      <if test="nationalStandard != null" >
+        "national standard" = #{nationalStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="landmark != null" >
+        landmark = #{landmark,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        endtime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shouhou.pojo.Test" >
+    update test
+    set number = #{number,jdbcType=VARCHAR},
+      name_ = #{name,jdbcType=VARCHAR},
+      range_ = #{range,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      standard = #{standard,jdbcType=VARCHAR},
+      "national standard" = #{nationalStandard,jdbcType=VARCHAR},
+      landmark = #{landmark,jdbcType=VARCHAR},
+      time = #{time,jdbcType=TIMESTAMP},
+      endtime = #{endtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

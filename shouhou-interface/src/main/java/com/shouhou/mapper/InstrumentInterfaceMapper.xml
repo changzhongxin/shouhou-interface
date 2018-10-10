@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shouhou.mapper.InstrumentInterfaceMapper" >
+  <resultMap id="BaseResultMap" type="com.shouhou.pojo.InstrumentInterface" >
+    <id column="interface_uuid" property="interfaceUuid" jdbcType="VARCHAR" />
+    <result column="interface_name" property="interfaceName" jdbcType="VARCHAR" />
+    <result column="interface_filepath" property="interfaceFilepath" jdbcType="VARCHAR" />
+    <result column="instrument_id" property="instrumentId" jdbcType="INTEGER" />
+    <result column="interface_type" property="interfaceType" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    interface_uuid, interface_name, interface_filepath, instrument_id, interface_type
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shouhou.pojo.InstrumentInterfaceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from instrument_interface
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from instrument_interface
+    where interface_uuid = #{interfaceUuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from instrument_interface
+    where interface_uuid = #{interfaceUuid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shouhou.pojo.InstrumentInterfaceExample" >
+    delete from instrument_interface
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shouhou.pojo.InstrumentInterface" >
+    insert into instrument_interface (interface_uuid, interface_name, interface_filepath, 
+      instrument_id, interface_type)
+    values (#{interfaceUuid,jdbcType=VARCHAR}, #{interfaceName,jdbcType=VARCHAR}, #{interfaceFilepath,jdbcType=VARCHAR}, 
+      #{instrumentId,jdbcType=INTEGER}, #{interfaceType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shouhou.pojo.InstrumentInterface" >
+    insert into instrument_interface
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="interfaceUuid != null" >
+        interface_uuid,
+      </if>
+      <if test="interfaceName != null" >
+        interface_name,
+      </if>
+      <if test="interfaceFilepath != null" >
+        interface_filepath,
+      </if>
+      <if test="instrumentId != null" >
+        instrument_id,
+      </if>
+      <if test="interfaceType != null" >
+        interface_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="interfaceUuid != null" >
+        #{interfaceUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="interfaceName != null" >
+        #{interfaceName,jdbcType=VARCHAR},
+      </if>
+      <if test="interfaceFilepath != null" >
+        #{interfaceFilepath,jdbcType=VARCHAR},
+      </if>
+      <if test="instrumentId != null" >
+        #{instrumentId,jdbcType=INTEGER},
+      </if>
+      <if test="interfaceType != null" >
+        #{interfaceType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shouhou.pojo.InstrumentInterfaceExample" resultType="java.lang.Integer" >
+    select count(*) from instrument_interface
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update instrument_interface
+    <set >
+      <if test="record.interfaceUuid != null" >
+        interface_uuid = #{record.interfaceUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.interfaceName != null" >
+        interface_name = #{record.interfaceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.interfaceFilepath != null" >
+        interface_filepath = #{record.interfaceFilepath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.instrumentId != null" >
+        instrument_id = #{record.instrumentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.interfaceType != null" >
+        interface_type = #{record.interfaceType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update instrument_interface
+    set interface_uuid = #{record.interfaceUuid,jdbcType=VARCHAR},
+      interface_name = #{record.interfaceName,jdbcType=VARCHAR},
+      interface_filepath = #{record.interfaceFilepath,jdbcType=VARCHAR},
+      instrument_id = #{record.instrumentId,jdbcType=INTEGER},
+      interface_type = #{record.interfaceType,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shouhou.pojo.InstrumentInterface" >
+    update instrument_interface
+    <set >
+      <if test="interfaceName != null" >
+        interface_name = #{interfaceName,jdbcType=VARCHAR},
+      </if>
+      <if test="interfaceFilepath != null" >
+        interface_filepath = #{interfaceFilepath,jdbcType=VARCHAR},
+      </if>
+      <if test="instrumentId != null" >
+        instrument_id = #{instrumentId,jdbcType=INTEGER},
+      </if>
+      <if test="interfaceType != null" >
+        interface_type = #{interfaceType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where interface_uuid = #{interfaceUuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shouhou.pojo.InstrumentInterface" >
+    update instrument_interface
+    set interface_name = #{interfaceName,jdbcType=VARCHAR},
+      interface_filepath = #{interfaceFilepath,jdbcType=VARCHAR},
+      instrument_id = #{instrumentId,jdbcType=INTEGER},
+      interface_type = #{interfaceType,jdbcType=VARCHAR}
+    where interface_uuid = #{interfaceUuid,jdbcType=VARCHAR}
+  </update>
+</mapper>
